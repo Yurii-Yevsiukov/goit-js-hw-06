@@ -23,23 +23,16 @@ const images = [
 ];
 
 const imagesList = document.querySelector('.gallery');
+
+imagesList.style.listStyle = 'none';
 imagesList.style.display = 'flex';
 imagesList.style.justifyContent = 'center';
+imagesList.style.gap = '15px';
 
-const makeimagesListItem = ({ url, alt }) => {
-  const imageListItem = document.createElement('li');
-  imageListItem.insertAdjacentHTML('afterbegin', `<img src=${url} alt=${alt}>`);
+function imageElements (img) {
+  return img
+    .map(({ url, alt }) => `<li><img src="${url}" alt="${alt}" width="350"></li>`)
+    .join(' ');
+}
 
-  imageListItem.style.display = 'flex';
-  imageListItem.style.justifyContent = 'center';
-  imageListItem.style.width = '350px';
-  imageListItem.style.height = '250px';
-  imageListItem.style.margin = '10px';
-  imageListItem.style.overflow = 'hidden';
-
-  return imageListItem;
-};
-
-const markupImagesInsert = images.map(makeimagesListItem);
-
-imagesList.append(...markupImagesInsert);
+imagesList.insertAdjacentHTML('afterbegin', imageElements(images));
